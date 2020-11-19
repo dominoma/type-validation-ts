@@ -20,6 +20,9 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '15.x'
+        registry-url: 'https://registry.npmjs.org'
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     - name: bumping version
       id: vbump
@@ -35,7 +38,6 @@ jobs:
       run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
 
     - name: committing version bump
       run: |
