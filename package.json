@@ -1,6 +1,6 @@
 {
   "name": "type-validation-ts",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An easy to use TypeScript type validator based on JSON schema and type guards.",
   "main": "lib/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/dominoma/type-validation-ts#readme",
   "bin": {
-    "generate-validators": "./lib/index.js"
+    "generate-validators": "lib/index.js"
   },
   "devDependencies": {
     "@types/node": "^14.14.8",
