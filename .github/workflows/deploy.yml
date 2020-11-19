@@ -19,7 +19,7 @@ jobs:
 
     - uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '15.x'
 
     - name: bumping version
       id: vbump
@@ -35,6 +35,7 @@ jobs:
       run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        NPM_EMAIL: ${{ secrets.NPM_EMAIL }}
 
     - name: committing version bump
       run: |
