@@ -31,6 +31,9 @@ jobs:
     #     git commit -m "Bumped version to ${{ steps.vbump.outputs.version }}"
     #     git push
 
+    - name: install dependencies
+      run: npm ci
+
     - name: compile package
       run: npm run compile
 
