@@ -5,8 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "rm -r -f lib && tsc",
-    "run": "type-validation-ts ./src/types.ts ./validators"
+    "compile": "rm -r -f lib && tsc"
   },
   "repository": {
     "type": "git",
