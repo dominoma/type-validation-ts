@@ -1,0 +1,22 @@
+{
+  "files": ["./src/index.ts"],
+  "compilerOptions": {
+    "lib": ["es2017"],
+    "preserveConstEnums": true,
+    "removeComments": true,
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true,
+    "target": "es2017",
+    "outDir": "lib",
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "types": [
+      "node"
+    ],
+    "declaration": true
+  }
+}

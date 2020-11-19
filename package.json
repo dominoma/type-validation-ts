@@ -1,0 +1,39 @@
+{
+  "name": "type-validation-ts",
+  "version": "1.0.0",
+  "description": "An easy to use TypeScript type validator based on JSON schema and type guards.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "compile": "rm -r -f lib && tsc",
+    "run": "type-validation-ts ./src/types.ts ./validators"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dominoma/type-validation-ts.git"
+  },
+  "author": "dominoma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dominoma/type-validation-ts/issues"
+  },
+  "homepage": "https://github.com/dominoma/type-validation-ts#readme",
+  "bin": {
+    "generate-validators": "./lib/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.8",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "prettier": "^2.1.2",
+    "typescript": "^4.0.5",
+    "typescript-eslint": "0.0.1-alpha.0"
+  },
+  "dependencies": {
+    "ts-morph": "^8.2.0",
+    "typescript-json-schema": "^0.43.0"
+  }
+}
