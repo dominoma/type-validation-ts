@@ -10,7 +10,6 @@ export interface ConsoleParameters {
 }
 
 export function getParameters(): ConsoleParameters {
-  console.log(process.argv)
   if (![4, 5].includes(process.argv.length)) {
     throw new Error(
       'Reqired parameters are missing. <type-file> <validaton-folder> [tscofig.json-path]'

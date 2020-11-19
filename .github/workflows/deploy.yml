@@ -21,15 +21,9 @@ jobs:
       with:
         node-version: '12.x'
 
-    # - name: bumping version
-    #   id: vbump
-    #   run: |
-    #     git config user.email "dominik.sander@bonmedi.de"
-    #     git config user.name "Dominik Sander"
-    #     echo "::set-output name=version::$(npm --no-git-tag-version version minor)"
-    #     git add -A
-    #     git commit -m "Bumped version to ${{ steps.vbump.outputs.version }}"
-    #     git push
+    - name: bumping version
+      id: vbump
+      run: echo "::set-output name=version::$(npm --no-git-tag-version version minor)"
 
     - name: install dependencies
       run: npm ci
@@ -41,6 +35,14 @@ jobs:
       run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    - name: committing version bump
+      run: |
+        git config user.email "dominik.sander.monster@gmail.com"
+        git config user.name "Dominik Sander"
+        git add -A
+        git commit -m "Bumped version to ${{ steps.vbump.outputs.version }}"
+        git push
 
     - name: Create Release
       id: create_release
