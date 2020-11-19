@@ -1,5 +1,5 @@
 # type-validation-ts
-This CLI generates type-guard validator functions from typescript types. It generates JSON schemas from typescript types with [https://www.npmjs.com/package/typescript-json-schema](typescript-json-schema) and then generates type-guard functions which validate unknown objects with those schemas.
+This CLI generates type-guard validator functions from typescript types. It generates JSON schemas from typescript types with [typescript-json-schema](https://www.npmjs.com/package/typescript-json-schema) and then generates type-guard functions which validate unknown objects with those schemas.
 
 ## How it works
 
@@ -49,7 +49,7 @@ app.post('/foo', (req, rsp) => {
 
 First, install the type-validation-ts package with `npm install type-validation-ts -D`
 
-Then you have to install the [https://www.npmjs.com/package/jsonschema](jsonschema) package because the generated validate functions require it.
+Then you have to install the [jsonschema](https://www.npmjs.com/package/jsonschema) package because the generated validate functions require it.
 
 ```bash
 npm install jsonschema
