@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "ts-morph": "^8.2.0",
-    "typescript-json-schema": "^0.43.0"
+    "typescript-json-schema": "^0.50.0"
   },
   "peerDependencies": {
     "jsonschema": "1.x"
