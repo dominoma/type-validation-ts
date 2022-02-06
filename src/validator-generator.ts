@@ -1,4 +1,5 @@
 import { Project, VariableDeclarationKind, SourceFile } from 'ts-morph'
+
 import path from 'path'
 
 export class ValidatorGenerator {
