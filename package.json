@@ -1,6 +1,6 @@
 {
   "name": "type-validation-ts",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "An easy to use TypeScript type validator based on JSON schema and type guards.",
   "main": "lib/index.js",
   "scripts": {
