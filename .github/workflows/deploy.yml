@@ -1,56 +1,48 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Package deploy CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
-on:
+'on':
   push:
-    branches: [ main ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+    branches:
+      - main
 jobs:
-  # This workflow contains a single job called "build"
   deploy:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.vbump.outputs.version }}
-    # Steps represent a sequence of tasks that will be executed as part of the job
+      version: '${{ steps.vbump.outputs.version }}'
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-        registry-url: https://npm.pkg.github.com/
-
-    - name: bumping version
-      id: vbump
-      run: |
-        git config user.email "dominik.sander@bonmedi.de"
-        git config user.name "Dominik Sander"
-        echo "::set-output name=version::$(npm --no-git-tag-version version minor)"
-        git add -A
-        git commit -m "Bumped version to ${{ steps.vbump.outputs.version }}"
-        git push
-
-    - name: compile package
-      run: npm run compile
-
-    - name: publish package
-      run: npm publish
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.vbump.outputs.version }}
-        release_name: Release ${{ steps.vbump.outputs.version }}
-        draft: false
-        prerelease: false
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+          registry-url: 'https://registry.npmjs.org'
+        env:
+          NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}'
+      - name: bumping version
+        id: vbump
+        run: >-
+          echo "::set-output name=version::$(npm --no-git-tag-version version
+          minor)"
+      - name: install dependencies
+        run: npm ci
+      - name: compile package
+        run: npm run compile
+      - name: publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: '${{ secrets.NPM_TOKEN }}'
+      - name: committing version bump
+        run: |
+          git config user.email "dominik.sander.monster@gmail.com"
+          git config user.name "Dominik Sander"
+          git add -A
+          git commit -m "Bumped version to ${{ steps.vbump.outputs.version }}"
+          git push
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        with:
+          tag_name: '${{ steps.vbump.outputs.version }}'
+          release_name: 'Release ${{ steps.vbump.outputs.version }}'
+          draft: false
+          prerelease: false
