@@ -44,7 +44,7 @@ async function run() {
   await Promise.all(
     typeNames.map(async (typeName) => {
       await schemaGenerator.createSchema(typeName)
-      validatorGenerator.createValidateFunction(typeName)
+      validatorGenerator.createValidationFunctions(typeName)
     })
   )
   await validatorGenerator.save()

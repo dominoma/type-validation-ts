@@ -1,4 +1,9 @@
-import { Project, VariableDeclarationKind, SourceFile } from 'ts-morph'
+import {
+  Project,
+  VariableDeclarationKind,
+  SourceFile,
+  StructureKind,
+} from 'ts-morph'
 import path from 'path'
 
 export class ValidatorGenerator {
@@ -42,6 +47,9 @@ export class ValidatorGenerator {
         {
           name: 'Validator',
         },
+        {
+          name: 'ValidationError',
+        },
       ],
     })
     const validatorDecl = this.validatorsModule.addVariableStatement({
@@ -57,7 +65,7 @@ export class ValidatorGenerator {
     return this.typeModule.getExportSymbols().map((el) => el.getName())
   }
 
-  createValidateFunction(typeName: string): void {
+  createValidationFunctions(typeName: string): void {
     this.validatorsModule.addImportDeclaration({
       moduleSpecifier: `./schemas/${typeName}.schema.json`,
       defaultImport: `${typeName}Schema`,
@@ -71,6 +79,24 @@ export class ValidatorGenerator {
     validator.addStatements(
       `return validator.validate(obj, ${typeName}Schema as any).valid`
     )
+    const asserter = this.validatorsModule.addFunction({
+      isExported: true,
+      name: `assert${typeName}`,
+      parameters: [{ name: 'obj', type: 'unknown' }],
+      returnType: `asserts obj is ${this.validatorTypesNamespace}.${typeName}`,
+    })
+    asserter.addStatements((writer) => {
+      writer
+        .writeLine(
+          `const result = validator.validate(obj, ${typeName}Schema as any)`
+        )
+        .writeLine('if(!result.valid)')
+        .block(() => {
+          writer.writeLine(
+            `throw new ValidationError(\`Object is not of type ${typeName}!\\n\${result.errors.join('\\n')}\`)`
+          )
+        })
+    })
   }
 
   save(): Promise<void> {
